@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hibabe — Colección Invierno 2025</title>
+
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600;700&family=Dancing+Script&display=swap" rel="stylesheet">
+
+<!-- AOS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+
+<style>
+:root{
+  --beige:#efe6dc;
+  --pink: #e99fb0;
+  --brown:#6a4f45;
+  --muted:#8b8b8b;
+  --neon:#ff6fbf;
+  --shadow: rgba(9,9,9,0.14);
+  --smooth: cubic-bezier(.2,.9,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--beige);
+  color:var(--brown);
+  line-height:1.45;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+
+/* HEADER */
+header.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;justify-content:center;background:rgba(0,0,0,0.25);backdrop-filter:blur(8px);
+}
+.header-inner{width:100%;max-width:1180px;display:flex;justify-content:space-between;align-items:center;padding:10px 20px;}
+.brand img{height:65px;width:auto;filter:drop-shadow(0 8px 18px rgba(255,111,191,0.25));border-radius:10px}
+.nav{display:flex;gap:18px;}
+.nav a{padding:8px 14px;border-radius:10px;font-weight:700;color:white;background:rgba(255,255,255,0.12);transition:all .25s var(--smooth);}
+.nav a:hover,.nav a.active{color:var(--pink);background:rgba(255,255,255,0.25);}
+
+/* HERO */
+.hero-wrap{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.4);}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.2),rgba(0,0,0,0.5));}
+.hero-content{position:relative;z-index:10;text-align:center;color:white;padding:40px;}
+.hero-title{font-family:'Playfair Display';font-size:clamp(48px,8vw,96px);font-weight:700;color:var(--pink);text-shadow:0 5px 30px rgba(0,0,0,0.5);}
+.hero-sub{font-family:'Dancing Script',cursive;font-size:24px;margin-top:12px;}
+.btn-main{margin-top:20px;background:linear-gradient(90deg,var(--neon),var(--pink));padding:14px 26px;border-radius:999px;font-weight:800;color:#fff;border:none;cursor:pointer;box-shadow:0 12px 40px rgba(255,111,191,0.16);transition:all .3s;}
+.btn-main:hover{transform:translateY(-5px);box-shadow:0 26px 60px rgba(255,111,191,0.3);}
+
+/* SECCIONES */
+section{display:none;padding:120px 0 80px 0;} /* <-- aumentado el margen superior */
+section.active{display:block;}
+.section-title{text-align:center;font-family:'Playfair Display';font-size:2rem;margin-bottom:10px;margin-top:40px;} /* títulos más abajo */
+.section-sub{text-align:center;color:var(--muted);margin-bottom:30px;}
+
+/* TIENDA */
+.shop-canvas{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+.polaroid{position:relative;overflow:hidden;border-radius:15px;background:white;box-shadow:0 10px 25px rgba(0,0,0,0.1);transition:all .4s;}
+.polaroid img{width:100%;height:340px;object-fit:cover;transition:transform .5s;}
+.polaroid:hover img{transform:scale(1.1);}
+.polaroid .tag{position:absolute;top:10px;left:10px;background:var(--pink);color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;}
+.polaroid .info{padding:12px;text-align:center;}
+.polaroid .info h4{color:var(--brown);font-weight:700;}
+.polaroid .info p{color:var(--muted);font-size:0.9rem;margin-top:4px;}
+.polaroid:hover{transform:translateY(-10px);}
+
+/* Modal Detalle */
+.details-popup{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2000;}
+.details-content{background:white;border-radius:18px;padding:24px;width:90%;max-width:400px;text-align:center;position:relative;}
+.details-close{position:absolute;top:8px;right:12px;font-size:22px;cursor:pointer;}
+.details-content h3{color:var(--pink);margin-bottom:10px;}
+
+/* CONÓCENOS */
+#about .container{display:flex;flex-wrap:wrap;align-items:center;gap:40px;justify-content:center;}
+.about-text{flex:1 1 45%;text-align:center;animation:float 5s ease-in-out infinite;}
+.about-text p{font-size:1rem;line-height:1.6;}
+@keyframes float{
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+  100%{transform:translateY(0);}
+}
+.about-gallery{flex:1 1 45%;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.about-gallery img{width:100%;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.1);transition:transform .5s;}
+.about-gallery img:hover{transform:scale(1.05);}
+
+/* TENDENCIAS */
+#trends .trend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;perspective:1000px;}
+.trend-card{position:relative;width:100%;height:320px;transform-style:preserve-3d;transition:transform .8s;}
+.trend-card:hover{transform:rotateY(180deg);}
+.trend-card .front,.trend-card .back{
+  position:absolute;inset:0;border-radius:15px;overflow:hidden;backface-visibility:hidden;
+}
+.trend-card .front img{width:100%;height:100%;object-fit:cover;}
+.trend-card .front span{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);color:#fff;padding:10px;text-align:center;font-weight:700;}
+.trend-card .back{
+  background:white;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--brown);transform:rotateY(180deg);box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+.trend-card .back p{margin:5px 0;font-weight:500;}
+
+/* CONTACTO */
+#contact .contact-grid{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center;}
+.map{flex:1 1 400px;transition:transform .5s;}
+.map:hover{transform:scale(1.03);}
+.map iframe{width:100%;height:300px;border-radius:12px;}
+.contact-form{flex:1 1 400px;animation:fadeInUp 1s ease both;}
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.contact-form form{display:flex;flex-direction:column;gap:12px;background:white;padding:20px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.1);}
+.contact-form input,.contact-form textarea{padding:12px;border-radius:10px;border:1px solid #ccc;}
+.contact-form button{padding:12px;border-radius:999px;background:linear-gradient(90deg,var(--neon),var(--pink));color:white;font-weight:700;border:none;cursor:pointer;transition:all .3s;}
+.contact-form button:hover{transform:scale(1.05);box-shadow:0 10px 25px rgba(255,111,191,0.3);}
+
+/* Responsive */
+@media (max-width:768px){
+  header.site-header{background:rgba(0,0,0,0.4);}
+  .about-gallery{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand"><img src="Recursos/logo-removebg-preview.png" alt="Hibabe Logo"></div>
+    <nav class="nav">
+      <a href="#" data-target="home" class="active">Inicio</a>
+      <a href="#" data-target="shop">Tienda</a>
+      <a href="#" data-target="about">Conócenos</a>
+      <a href="#" data-target="trends">Tendencias</a>
+      <a href="#" data-target="contact">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="active">
+  <div class="hero-wrap">
+    <video class="hero-video" autoplay muted loop playsinline src="Recursos/68ffa394b8350285031665_ON052KIH.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="zoom-in">
+      <h1 class="hero-title">COLECCIÓN<br>INVIERNO 2025</h1>
+      <div class="hero-sub">HIBABE — Viste tu actitud, vive tu estilo.</div>
+      <button class="btn-main" id="exploreBtn">Explorar colección ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- TIENDA -->
+<section id="shop">
+  <div class="container">
+    <h2 class="section-title">Lo más pedido</h2>
+    <p class="section-sub">Descubre las prendas más exclusivas de la temporada</p>
+    <div class="shop-canvas">
+      <div class="polaroid" onclick="openDetails('Casaca Harper','S/190','Tallas: S, M','Color: rosa')">
+        <span class="tag">Nuevo</span><img src="Recursos/Casaca Harper.jpg">
+        <div class="info"><h4>Casaca Harper</h4><p>S/ 190</p></div>
+      </div>
+      <div class="polaroid" onclick="openDetails('Jean Devyn','S/160','Tallas: S, M','Color: plomo')">
+        <span class="tag">Top</span><img src="Recursos/Hoodi Andy.jpg">
+        <div class="info"><h4>Hoodi Andy</h4><p>S/ 160</p></div>
+      </div>
+      <div class="polaroid" onclick="openDetails('Blusa Twins','S/180','Tallas: S,M','Color: rojo')">
+        <span class="tag">Favorito</span><img src="Recursos/Zipper Valko.jpg">
+        <div class="info"><h4>Zipper Valko</h4><p>S/ 180</p></div>
+      </div>
+      <div class="polaroid" onclick="openDetails('Chompa Pam','S/150','Tallas: S, M','Color: plomo')">
+        <img src="Recursos/POLO.jpeg">
+        <div class="info"><h4>Chompa Pam</h4><p>S/ 150</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="details-popup" id="detailsPopup">
+  <div class="details-content">
+    <span class="details-close" onclick="closeDetails()">&times;</span>
+    <h3 id="detailTitle"></h3>
+    <p id="detailPrice"></p>
+    <p id="detailSize"></p>
+    <p id="detailColor"></p>
+  </div>
+</div>
+
+<!-- CONÓCENOS -->
+<section id="about">
+  <div class="container">
+    <div class="about-text" data-aos="fade-right">
+      <h2 class="section-title">Conócenos</h2>
+      <p>💫 HIBABE nace de la pasión por la moda y el poder femenino. Cada prenda es una declaración de estilo, confianza y autenticidad. Diseñamos para mujeres que brillan con su propia luz, que se atreven a ser diferentes y que transforman lo cotidiano en algo extraordinario. ✨
+Elegancia, actitud y sostenibilidad se unen en cada detalle… porque vestir HIBABE es vestir tu esencia. 💃</p>
+    </div>
+    <div class="about-gallery" data-aos="fade-left">
+      <img src="Recursos/conocenos nuevo 2.png">
+      <img src="Recursos/concenos nuevo 3.png">
+    </div>
+  </div>
+</section>
+
+<!-- TENDENCIAS -->
+<section id="trends">
+  <div class="container">
+    <h2 class="section-title">Tendencias</h2>
+    <p class="section-sub">Tu look completo de invierno</p>
+    <div class="trend-grid">
+      <div class="trend-card">
+        <div class="front"><img src="Recursos/Conjunto 1.jpeg"><span>Pink Camo</span></div>
+        <div class="back"><h4>Pink Camo</h4><p>Talla: S–M</p><p>Color: Rosa </p><p>Precio: S/ 190</p></div>
+      </div>
+      <div class="trend-card">
+        <div class="front"><img src="Recursos/Conjunto 3.jpeg"><span>Babe Urban</span></div>
+        <div class="back"><h4>Babe Urban</h4><p>Talla: S-M</p><p>Color: Amararillo </p><p>Precio: S/ 200</p></div>
+      </div>
+      <div class="trend-card">
+        <div class="front"><img src="Recursos/Conjunto 2.jpeg"><span>Babe Rebel</span></div>
+        <div class="back"><h4>Babe Rebel</h4><p>Talla: S-M</p><p>Color: Negro </p><p>Precio: S/ 180</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title">Contacto</h2>
+    <p class="section-sub">¡Queremos saber de ti!</p>
+    <div class="contact-grid">
+      <div class="map" data-aos="fade-right">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3878.0000000000005!2d-77.0365!3d-12.0432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDAyJzAwLjAiUyA3N8KwMDEnMDAuMCJX!5e0!3m2!1ses-419!2spe!4v0000000000" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+      <div class="contact-form" data-aos="fade-left">
+        <form>
+          <input type="text" placeholder="Nombre" required>
+          <input type="email" placeholder="Correo" required>
+          <textarea placeholder="Mensaje" rows="5"></textarea>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+AOS.init();
+const links=document.querySelectorAll('.nav a');
+const sections=document.querySelectorAll('section');
+links.forEach(link=>link.addEventListener('click',e=>{
+  e.preventDefault();
+  const t=link.dataset.target;
+  sections.forEach(s=>s.classList.remove('active'));
+  document.getElementById(t).classList.add('active');
+  links.forEach(l=>l.classList.remove('active'));
+  link.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+document.getElementById('exploreBtn').addEventListener('click',()=>{document.querySelector('[data-target="shop"]').click();});
+function openDetails(t,p,s,c){
+  document.getElementById('detailTitle').innerText=t;
+  document.getElementById('detailPrice').innerText=p;
+  document.getElementById('detailSize').innerText=s;
+  document.getElementById('detailColor').innerText=c;
+  document.getElementById('detailsPopup').style.display='flex';
+}
+function closeDetails(){document.getElementById('detailsPopup').style.display='none';}
+</script>
+</body>
+</html>
+
